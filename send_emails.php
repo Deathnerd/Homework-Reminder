@@ -37,7 +37,7 @@
 			$assignments[$i]['class_name'] = $row['class_name'];
 			$i++;
 		}
-		var_dump($assignments);
+//		var_dump($assignments);
 		$mailer->setFrom(EMAIL_FROM, EMAIL_FROM_NAME);
 		$mailer->addAddress(EMAIL_TO, EMAIL_TO_NAME);
 
