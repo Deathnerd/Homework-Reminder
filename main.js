@@ -5,22 +5,10 @@ $(document).ready(function () {
 	var date = new Date();
 	$("#new_assignment").click(function () {
 		var month_due = $("#month_due").val();
-		var year_due = $("#year_due").val();
-		var day_due = $("#day_due").val();
+		var year_due = parseInt($("#year_due").val());
+		var day_due = parseInt($("#day_due").val());
 		var class_name = $("#class_name").val();
 		var assignment = $("#assignment").val();
-
-		var today = date.getDate();
-		var this_month = date.getMonth();
-		var this_year = date.getFullYear();
-
-		/*var today_full_date = ""+today+"-"+this_month+"-"+this_year;
-		var due_full_date = ""+day_due+"-"+month_due+"-"+year_due;*/
-
-		if (this_year > year_due || (today > day_due && (this_month > month_due || month_due == this_month))) {
-			alert("Check yo date, foo");
-			return;
-		}
 
 		$.ajax({
 			url: "actions.php",
