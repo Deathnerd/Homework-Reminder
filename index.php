@@ -26,14 +26,15 @@
 			die($sqlite->lastErrorMsg());
 		}
 	} catch (SQLiteException $e) {
-		die("Error: ".$e->getMessage());
+		die("Error: " . $e->getMessage());
 	}
 
 	$cal_info = cal_info(0);
 	$months = $cal_info['months'];
-	$year = (int)date("Y");
 	$statement = $sqlite->prepare("SELECT * FROM classes");
 	$classes = $statement->execute();
+
+	list($year, $this_month, $today) = explode("-", date("Y-m-d"));
 ?>
 <!doctype html>
 <html lang="en">
@@ -68,7 +69,8 @@
 <select name="day_due" id="day_due">
 	<?
 		for ($i = 1; $i <= 31; $i++) {
-			echo "<option value='$i'>$i</option>";
+			$selected_text = $i == $today ? "selected" : "";
+			echo "<option value='$i' $selected_text>$i</option>";
 		}
 	?>
 </select>
@@ -76,8 +78,11 @@
 <label for="month_due">Month Due:</label>
 <select name="month_due" id="month_due">
 	<?
+		$j = 0;
 		foreach ($months as $month) {
-			echo "<option value='$month'>$month</option>";
+			$selected_text = $month == $months[(int)$this_month] ? "selected" : "";
+			echo "<option value='$month' month_array='{$months_array[$j]}' $selected_text>$month</option>";
+			$j++;
 		}
 	?>
 </select>
@@ -86,6 +91,7 @@
 <select name="year_due" id="year_due">
 	<?
 		for ($i = $year; $i < $year + 5; $i++) {
+			$selected_text = $i == $today ? "selected" : "";
 			echo "<option value='$i'>$i</option>";
 		}
 	?>
