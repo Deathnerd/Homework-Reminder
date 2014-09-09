@@ -58,7 +58,7 @@
 		$statement->bindValue(":assignment", $_GET['assignment'], SQLITE3_TEXT);
 		$statement->execute();
 	} catch (SQLiteException $e) {
-		die("Error: $e");
+		die("Error: ".$e->getMessage());
 	}
 
 	exit("Success");

@@ -2,7 +2,6 @@
  * Created by Deathnerd on 9/8/14.
  */
 $(document).ready(function () {
-	var date = new Date();
 	$("#new_assignment").click(function () {
 		var month_due = $("#month_due").val();
 		var year_due = parseInt($("#year_due").val());

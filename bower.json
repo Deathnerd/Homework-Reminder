@@ -1,0 +1,22 @@
+{
+	"name": "Homework Reminders",
+	"version": "0.1.0",
+	"description": "A simple script to send out reminders for assignments",
+	"main": "index.php",
+	"authors": [
+		"Wes Gilleland"
+	],
+	"license": "MIT",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"jquery": "~2.1.1",
+		"bootstrap": "~3.2.0"
+	}
+}

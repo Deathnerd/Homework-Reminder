@@ -26,7 +26,7 @@
 			die($sqlite->lastErrorMsg());
 		}
 	} catch (SQLiteException $e) {
-		die("Error: $e");
+		die("Error: ".$e->getMessage());
 	}
 
 	$cal_info = cal_info(0);
@@ -40,7 +40,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Homework Reminders</title>
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<!--<script src="http://code.jquery.com/jquery-latest.min.js"></script>-->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
 	<script src="main.js"></script>
 	<link rel="stylesheet" href="styles.css"/>
 </head>
