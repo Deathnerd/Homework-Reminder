@@ -2,3 +2,4 @@ src/phpmailer/composer.json
 .idea/
 mail_config_vals.php
 node_modules/
+db.sqlite
