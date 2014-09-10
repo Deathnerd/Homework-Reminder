@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Homework Reminders</title>
-	<!-- build:css /css/site.css -->
+	<!-- build:css css/site.css -->
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
 	<link rel="stylesheet" href="css/styles.css"/>
 	<!-- endbuild -->
-	<!-- build:js /js/site.js -->
+	<!-- build:js js/site.js -->
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="js/main.js"></script>

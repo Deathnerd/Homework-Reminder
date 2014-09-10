@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Homework Reminders</title>
-	<link rel="stylesheet" href="/css/site.css"/>
-	<script src="/js/site.js"></script>
+	<link rel="stylesheet" href="css/site.css"/>
+	<script src="js/site.js"></script>
 </head>
 <body>
 <nav id="myNavbar" class="navbar navbar-default navbar-inverse" role="navigation">
