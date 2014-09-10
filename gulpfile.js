@@ -53,7 +53,6 @@ gulp.task('php', function () {
 	/*
 	 *  Just pipe all the PHP files through usemin because what harm is it, really?
 	 *  Calls minifyCSS() and uglify() to make sure no files are missed before concatenating
-	 *  Excludes adminer from the stream just so nothing fucks up
 	 */
 	gulp.src('src/*.php')
 		.pipe(usemin({
