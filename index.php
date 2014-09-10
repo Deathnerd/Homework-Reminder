@@ -35,99 +35,119 @@
 	$classes = $statement->execute();
 
 	list($year, $this_month, $today) = explode("-", date("Y-m-d"));
+	require_once("header.php");
 ?>
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Homework Reminders</title>
-	<!--<script src="http://code.jquery.com/jquery-latest.min.js"></script>-->
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
-	<script src="main.js"></script>
-	<link rel="stylesheet" href="styles.css"/>
-</head>
-<body>
-<h1>Assignment Reminders</h1>
-<label for="assignment">Assignment: </label>
-<input id="assignment" type="text"/>
-<br/>
-<label for="class_name">Class Name: </label>
-<!--<input id="class_name" type="text"/>-->
-<select name="class_name" id="class_name">
-	<?
-		while ($class = $classes->fetchArray(SQLITE3_ASSOC)) {
-			$class_name = $class['class_name'];
-			echo "<option value='$class_name'>$class_name</option>";
-		}
-	?>
-</select>
-<br/>
-<label for="day_due">Day Due:</label>
-<select name="day_due" id="day_due">
-	<?
-		for ($i = 1; $i <= 31; $i++) {
-			$selected_text = $i == $today ? "selected" : "";
-			echo "<option value='$i' $selected_text>$i</option>";
-		}
-	?>
-</select>
-<br/>
-<label for="month_due">Month Due:</label>
-<select name="month_due" id="month_due">
-	<?
-		$j = 0;
-		foreach ($months as $month) {
-			$selected_text = $month == $months[(int)$this_month] ? "selected" : "";
-			echo "<option value='$month' month_array='{$months_array[$j]}' $selected_text>$month</option>";
-			$j++;
-		}
-	?>
-</select>
-<br/>
-<label for="year_due">Year Due:</label>
-<select name="year_due" id="year_due">
-	<?
-		for ($i = $year; $i < $year + 5; $i++) {
-			$selected_text = $i == $today ? "selected" : "";
-			echo "<option value='$i'>$i</option>";
-		}
-	?>
-</select>
-<input type="button" value="Submit new assignment" id="new_assignment"/>
-<table>
-	<tr>
-		<th>Id</th>
-		<th>Class Name</th>
-		<th>Assignment</th>
-		<th>Created</th>
-		<th>Due</th>
-		<th>Done?</th>
-	</tr>
-	<?
-		$statement = $sqlite->prepare("SELECT * FROM reminders");
-		$rows = $statement->execute();
-		$i = 0;
-		while ($row = $rows->fetchArray(SQLITE3_ASSOC)) {
-			$i++;
-			$row_style_class = $i % 2 ? "odd-row" : "";
-			$done = (int)$row["done"] ? "Yes" : "No";
-			$due_date = $row['due_year'] . "-" . $row['due_month'] . "-" . $row['due_day'];
-			$created_date = $row['created_year'] . "-" . $row['created_month'] . "-" . $row['created_day'];
-			?>
-			<tr class="<?= $row_style_class; ?>">
-				<td><?= $row['id']; ?></td>
-				<td><?= $row["class_name"]; ?></td>
-				<td><?= $row["assignment"]; ?></td>
-				<td><?= $created_date; ?></td>
-				<td><?= $due_date; ?></td>
-				<td><?= $done; ?></td>
+	<form>
+		<div class="col-lg-6 col-md-6 col-sm-6">
+			<div class="form-group">
+				<label for="assignment">Assignment: </label>
+				<input id="assignment" type="text" class="form-control" placeholder="Enter assignment here"/>
+			</div>
+			<!--		<br/>-->
+			<div class="form-group">
+				<label for="class_name">Class Name: </label>
+				<select name="class_name" id="class_name" class="form-control">
+					<?
+						while ($class = $classes->fetchArray(SQLITE3_ASSOC)) {
+							$class_name = $class['class_name'];
+							echo "<option value='$class_name'>$class_name</option>";
+						}
+					?>
+				</select>
+			</div>
+			<!--		<br/>-->
+			<div class="form-group">
+				<label for="day_due">Day Due:</label>
+				<select name="day_due" id="day_due" class="form-control">
+					<?
+						for ($i = 1; $i <= 31; $i++) {
+							$selected_text = $i == $today ? "selected" : "";
+							echo "<option value='$i' $selected_text>$i</option>";
+						}
+					?>
+				</select>
+			</div>
+		</div>
+		<!--		<br/>-->
+		<div class="col-lg-6 col-md-6 col-sm-6">
+			<div class="form-group">
+				<label for="month_due">Month Due:</label>
+				<select name="month_due" id="month_due" class="form-control">
+					<?
+						$j = 0;
+						foreach ($months as $month) {
+							$selected_text = $month == $months[(int)$this_month] ? "selected" : "";
+							echo "<option value='$month' month_array='{$months_array[$j]}' $selected_text>$month</option>";
+							$j++;
+						}
+					?>
+				</select>
+			</div>
+			<!--		<br/>-->
+			<div class="form-group">
+				<label for="year_due">Year Due:</label>
+				<select name="year_due" id="year_due" class="form-control">
+					<?
+						for ($i = $year; $i < $year + 5; $i++) {
+							$selected_text = $i == $today ? "selected" : "";
+							echo "<option value='$i'>$i</option>";
+						}
+					?>
+				</select>
+			</div>
+				<label for="new_assignment"></label>
+			<input type="button" value="Submit new assignment" id="new_assignment" name="new_assignment"
+			       class="btn btn-success form-control"/>
+		</div>
+	</form>
+	<div class="table-responsive">
+		<table class="table table-striped table-hover">
+			<thead>
+			<tr class="row">
+				<th>Assignment</th>
+				<th>Class Name</th>
+				<th>Created</th>
+				<th>Due</th>
+				<th>Done?</th>
 			</tr>
-		<?
-		}
-	?>
-</table>
-</body>
-</html>
+			</thead>
+			<?
+				$statement = $sqlite->prepare("SELECT * FROM reminders");
+				$rows = $statement->execute();
+				$i = 0;
+				while ($row = $rows->fetchArray(SQLITE3_ASSOC)) {
+					$i++;
+					$row_style_class = $i % 2 ? "" : "";
+					$done = (int)$row["done"] ? "Yes" : "No";
+					$due_date = $row['due_year'] . "-" . $row['due_month'] . "-" . $row['due_day'];
+					$created_date = $row['created_year'] . "-" . $row['created_month'] . "-" . $row['created_day'];
+					?>
+					<tr class="<?= $row_style_class; ?> row">
+						<td>
+							<?= $row["assignment"]; ?>
+						</td>
+						<td>
+							<?= $row["class_name"]; ?>
+						</td>
+						<td>
+							<?= $created_date; ?>
+						</td>
+						<td>
+							<?= $due_date; ?>
+						</td>
+						<td>
+							<?= $done; ?>
+						</td>
+						<td>
+							<span class="btn btn-success">Complete</span>
+						</td>
+						<td>
+							<span class="btn btn-danger">Delete</span>
+						</td>
+					</tr>
+				<?
+				}
+			?>
+		</table>
+	</div>
+<? require_once("footer.php");
