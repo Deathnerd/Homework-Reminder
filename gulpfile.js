@@ -71,7 +71,7 @@ gulp.task('default', function () {
 	gulp.run('css');
 	gulp.watch('src/css/*.css', function () {
 		gulp.run('css');
-	})
+	});
 	/*
 	 *  Take care of the JS build
 	 */
