@@ -46,7 +46,7 @@
 			$days_till_due = (strtotime($due_date) - strtotime($today)) / 60 / 60 / 24;
 			$mailer->Subject = "Daily reminder for {$assignment['class_name']}: {$assignment['assignment']}";
 			if ($days_till_due > 0) {
-				$mailer->msgHTML("<p>Your assignment \"{$assignment['assignment']}\" for \"{$assignment['class_name']}\" is due in <b>$days_till_due</b> on <b>$due_date</b></p>
+				$mailer->msgHTML("<p>Your assignment \"{$assignment['assignment']}\" for \"{$assignment['class_name']}\" is due in <b>$days_till_due</b> days on <b>$due_date</b></p>
 								<p><i>- Homework Reminder</i></p>");
 			} elseif ($days_till_due == 0) {
 				$mailer->msgHTML("<p>Your assignment \"{$assignment['assignment']}\" for \"{$assignment['class_name']}\" is due <b><i>TODAY</i></b></p>
