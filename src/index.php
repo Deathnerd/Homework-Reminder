@@ -126,26 +126,16 @@
 					$created_date = $row['created_year'] . "-" . $row['created_month'] . "-" . $row['created_day'];
 					?>
 					<tr class="<?= $row_style_class; ?> row">
+						<td class="assignment"><?= $row["assignment"]; ?></td>
+						<td class="class_name"><?= $row["class_name"]; ?></td>
+						<td class="created_date"><?= $created_date; ?></td>
+						<td class="due_date"><?= $due_date; ?></td>
+						<td class="done"><?= $done; ?></td>
 						<td>
-							<?= $row["assignment"]; ?>
+							<span class="btn btn-success complete_assignment">Complete</span>
 						</td>
 						<td>
-							<?= $row["class_name"]; ?>
-						</td>
-						<td>
-							<?= $created_date; ?>
-						</td>
-						<td>
-							<?= $due_date; ?>
-						</td>
-						<td>
-							<?= $done; ?>
-						</td>
-						<td>
-							<span class="btn btn-success">Complete</span>
-						</td>
-						<td>
-							<span class="btn btn-danger">Delete</span>
+							<span class="btn btn-danger delete_assignment">Delete</span>
 						</td>
 					</tr>
 				<?
