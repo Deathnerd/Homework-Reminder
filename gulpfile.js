@@ -1,5 +1,20 @@
 /**
  * Created by Wes Gilleland on 9/9/14.
+ *
+ * Includes individual tasks for css, js, and php build tasks.
+ *
+ * - Run "gulp" to do a quick update of php, css, and json.
+ *
+ * - Run "gulp watch" to start watching files.
+ *
+ * - Run "gulp css" to update just the css build
+ *
+ * - Run "gulp php" to update just the php build
+ *
+ * - Run "gulp js" to update just the js build
+ *
+ * - Run "gulp phpmailer" to update the phpmailer build. You should only need to do it if you
+ *   update phpmailer for some reason
  */
 var gulp = require('gulp');
 var usemin = require('gulp-usemin');
@@ -41,16 +56,10 @@ gulp.task('php', function () {
 	 *  Excludes adminer from the stream just so nothing fucks up
 	 */
 	gulp.src('src/*.php')
-		.pipe(ignore.exclude('adminer*.php'))
 		.pipe(usemin({
 			css: [minifyCSS(), 'concat'],
 			js:  [uglify(), 'concat']
 		}))
-		.pipe(gulp.dest('dist'));
-	/*
-	 * Move over adminer
-	 */
-	gulp.src('src/adminer*.php')
 		.pipe(gulp.dest('dist'));
 });
 /*
@@ -61,29 +70,42 @@ gulp.task('phpmailer', function () {
 		.pipe(gulp.dest('dist/phpmailer'));
 });
 /*
- *  Default run task. Let the games begin!
+ *  Just run the watch tasks
  */
-gulp.task('default', function () {
-
+gulp.task('watch', function () {
 	/*
-	 *  Take care of the CSS build
+	 * Watch the css
 	 */
-	gulp.run('css');
 	gulp.watch('src/css/*.css', function () {
 		gulp.run('css');
 	});
 	/*
-	 *  Take care of the JS build
+	 * And the js
 	 */
-	gulp.run('js');
 	gulp.watch('src/js/*.js', function () {
 		gulp.run('js');
 	});
 	/*
-	 *  Take care of the PHP build
+	 * And the php
 	 */
-	gulp.run('php');
 	gulp.watch('src/**/*.php', function () {
 		gulp.run('php');
 	});
+});
+/*
+ *  Default run task. Let the games begin!
+ */
+gulp.task('default', function () {
+	/*
+	 *  Take care of the CSS build
+	 */
+	gulp.run('css');
+	/*
+	 *  Take care of the JS build
+	 */
+	gulp.run('js');
+	/*
+	 *  Take care of the PHP build
+	 */
+	gulp.run('php');
 });
