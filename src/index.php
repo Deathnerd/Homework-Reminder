@@ -6,8 +6,9 @@
 	 * Time: 4:53 PM
 	 */
 
-	$sqlite = new SQLite3("db.sqlite");
 	try {
+		$sqlite = new SQLite3("db.sqlite");
+
 		if (!$sqlite->exec("CREATE TABLE IF NOT EXISTS reminders(
 													id INTEGER PRIMARY KEY NOT NULL,
 													class_name TEXT,
@@ -26,6 +27,8 @@
 			die($sqlite->lastErrorMsg());
 		}
 	} catch (SQLiteException $e) {
+		die("Error: " . $e->getMessage());
+	} catch (Exception $e){
 		die("Error: " . $e->getMessage());
 	}
 
